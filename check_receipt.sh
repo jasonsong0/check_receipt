@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#hash array to check
+hashes=(
+    "0x17a1cacf3e10d3021157b3b1bb37c20ff5346c198c26b2706b140e15844f8b2c"
+    "0x27b110b65da60ba48cbacdbbd603d3c7431e95f76b45ed04825655cff7b987b9"
+    "0x287208b0e0ecce2dd2b2ead580cb35906d47568c43d06af415a926c2bdb059fc"
+    "0x32a4e3869519be5072136329e135f88cf74168e519866ebea57cc433a40e075c"
+    "0x3a2f786c413b25ee3dd0a0b4ce381bf34070057b45d42ec352b74d83a9485214"
+    "0x444fbbc3b512ba8a88fb0123a561bf6b705687961842e8b0f36c89e6fd341dd4"
+    "0x507c4b2ccbd7a039b87ad1f2c15e4c2f37877afdbd62c8c4335a0a8300d0096d"
+    "0x552026b9a81ffe9c3d77d397380732646ad68f1887fcd06b3748ad63ad5c085c"
+    "0x634d27ce283d0c048aae0ff51697dd794a3e7330beface61c001f5eb593e1840"
+    "0x637d0c673093e8f112eeb57cae831d1355f1341a786c1fd7496c7921fabe2493"
+    "0x6be81a6e5fe84f4c78cc51cbcf53862c58f69c633ffcef9ac872786b3a9362bf"
+    "0x758c45ec800c05c509204db58e5463b0336750db16056f765001e55a6b1dafb6"
+    "0x7af8e965fd437b29a4cdc45ca6bcd83ad5ce5cb631d9515c085529986174af64"
+    "0x81e26f5674d3221372648fef0f65ff2d3b1bb9055ffa113e9e14882e7c937fc1"
+    "0x83ba7322f5b446b29d9cb3de15a7fe3a0af094d29df8dcc99738ee84d8b778fd"
+    "0x875d7cb7668b6ff9d022b809db54f512736190dca58b47a377bea07183d66ff0"
+    "0x955fa0f3f4d2b4b32f13d6aabe212e646bcfef158c9a2fff8b4c6086b15474f2"
+    "0xad1ba0a2fbf5db4280c72b16ddb1f7eff44881235b7a510fc7ad7f38da12dd49"
+    "0xb53f9324f75a8a8867bf1b2a6a7d615418766e609bc3f6f2fc1b25ac4699f6ff"
+    "0xbb464dddb0acbb0918d129a7af62b8eec6d55c32bd63e943acc0138668a2acd9"
+    "0xbe28ece4dc02ee6f5d2af9a5599746c168896b8161d4f1783c2e49d83ec28d1b"
+    "0xcb06d3696ca4811a8fea64c0fda8b2b24280ddeefcd97595fdf4c4af0b172b3c"
+    "0xcfd708dc2d7ffd6f7208195fbbe5a1eed0cfb76c4596ed161034acda38d66b0f"
+    "0xd15e20cb7271e73725a67cc65fdb9c52367658030dd582b855d3887024d6cb2d"
+    "0xd50d17d437012e822b6c122ce0f9fb6601ce0fe8a8a805a644ff32a62dcdc44e"
+    "0xea7d2418908a1dff167c40140002d942dff4e5f0e70f0649bdbed5523c85cc7d"
+    "0xfb273bd0bbab8456fbc05127cda5ffbee95cb3c2a158e20bb46e63110a47ad97"
+)
+
+# curl request receipt
+for hash in "${hashes[@]}"
+do
+    echo "Requesting transaction receipt for hash: $hash"
+    
+    # curl 
+    curl -X POST http://127.0.0.1:8545 \
+    -H "Content-Type: application/json" \
+    --data "{
+      \"jsonrpc\":\"2.0\",
+      \"method\":\"eth_getTransactionReceipt\",
+      \"params\":[\"$hash\"],
+      \"id\":1
+    }"
+    
+    echo -e "\n"
+done
